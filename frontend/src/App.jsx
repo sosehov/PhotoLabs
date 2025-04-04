@@ -1,10 +1,6 @@
 import PhotoListItem from './components/PhotoListItem';
 import './App.scss';
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PhotoList from './components/PhotoList';
-
 
 const App = () => {
 
