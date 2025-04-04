@@ -1,5 +1,5 @@
 import React from 'react';
-import PhotoListItem from './components/PhotoListItem';
+import PhotoList from './components/PhotoList';
 import './App.scss';
 
 const App = () => {
@@ -57,7 +57,7 @@ const App = () => {
 
   return (
     <div className="app">
-      {sampleDataForPhotoList.map((photoData) => (
+      {/* sampleDataForPhotoList.map((photoData) => (
         <PhotoListItem 
           key={photoData.id} //Add a key for each list item
           username={photoData.user.username}
@@ -66,7 +66,8 @@ const App = () => {
           location={photoData.location}
           profile={photoData.user.profile}
         />
-      ))}
+      ))*/}
+      <PhotoList />
     </div>
   );
 };
