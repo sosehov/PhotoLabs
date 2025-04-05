@@ -21,7 +21,6 @@ const sampleDataForTopicList = [
 
 const TopicList = (props) => {
   return (
-
     <div className="top-nav-bar__topic-list">
       {sampleDataForTopicList.map((topicData) => (
         <TopicListItem 
