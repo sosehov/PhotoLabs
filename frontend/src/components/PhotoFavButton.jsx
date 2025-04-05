@@ -7,7 +7,7 @@ const PhotoFavButton = (props) => {
   return (
     <div className="photo-list__fav-icon" onClick={handleClick}>
       <div className="photo-list__fav-icon-svg">
-        <FavIcon selected={isLiked}/>
+        <FavIcon selected={isLiked} />
       </div>
     </div>
   );

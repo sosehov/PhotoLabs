@@ -1,13 +1,14 @@
-import react, { useState } from 'react';
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
-const PhotoListItem = ({ photoData }) => {
-  const { user: { username, profile }, urls: { full: imageSource }, location } = photoData;
-  const [isLiked, setIsLiked] = useState(false);
+const PhotoListItem = ({ photoData, likedPhotos, toggleFavorite }) => {
+  const { user: { username, profile }, urls: { full: imageSource }, id, location } = photoData;
+
+  // Checik if the current photo is liked
+  const isLiked = likedPhotos.includes(id);
 
   const handleClick = () => {
-    setIsLiked(!isLiked);
+    toggleFavorite(id);
   };
 
   return (
