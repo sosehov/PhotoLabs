@@ -7,9 +7,7 @@ const TopicList = ({ topics }) => {
       {topics.map((topicData) => (
         <TopicListItem 
           key={topicData.id}
-          id={topicData.id}
-          slug={topicData.slug}
-          title={topicData.title}
+          topicData={topicData}
         />
       ))}
     </div>
