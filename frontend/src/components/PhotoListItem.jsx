@@ -1,7 +1,7 @@
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
-const PhotoListItem = ({ photoData, likedPhotos, toggleFavorite }) => {
+const PhotoListItem = ({ photoData, likedPhotos, toggleFavorite, openModal }) => {
   const { user: { username, profile }, urls: { full: imageSource }, id, location } = photoData;
 
   // Checik if the current photo is liked
@@ -11,8 +11,12 @@ const PhotoListItem = ({ photoData, likedPhotos, toggleFavorite }) => {
     toggleFavorite(id);
   };
 
+  const handleOpenModal = () => {
+    openModal(photoData); // Open the modal with the clicked photo's data
+  }
+
   return (
-    <div className="photo-list__item">
+    <div className="photo-list__item" onClick={handleOpenModal}>
       <img src={imageSource} className="photo-list__image" />
       <div className="photo-list__user-details">
         <img src={profile} alt={`Profile of ${username}`} className="photo-list__user-profile" />
