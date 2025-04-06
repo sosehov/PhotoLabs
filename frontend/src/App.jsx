@@ -3,14 +3,12 @@ import HomeRoute from './routes/HomeRoute';
 import topics from './mocks/topics';
 import photos from './mocks/photos';
 import './App.scss';
-import TopNavigationBar from './components/TopNavigationBar';
+import PhotoDetailsModal from './routes/PhotoDetailsModal';
 
 const App = () => {
   const [likedPhotos, setLikedPhotos] = useState([]);
-
-  useEffect(() => {
-    // placeholder for future
-  }, []);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const toggleFavorite = (photoId) => {
     setLikedPhotos((prevLikedPhotos) => {
@@ -24,6 +22,16 @@ const App = () => {
     });
   };
 
+  const openModal = (photo) => {
+    setSelectedPhoto(photo);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPhoto(null);
+  };
+
   return (
     <div className="app">
       <HomeRoute 
@@ -31,7 +39,14 @@ const App = () => {
         topics={topics}
         likedPhotos={likedPhotos}
         toggleFavorite={toggleFavorite}
+        openModal={openModal}
       />
+      {isModalOpen && selectedPhoto && (
+        <PhotoDetailsModal
+          photo={selectedPhoto}
+          closeModal={closeModal}
+        />
+      )}
     </div>
   );
 };
