@@ -3,6 +3,7 @@ import HomeRoute from './routes/HomeRoute';
 import topics from './mocks/topics';
 import photos from './mocks/photos';
 import './App.scss';
+import TopNavigationBar from './components/TopNavigationBar';
 
 const App = () => {
   const [likedPhotos, setLikedPhotos] = useState([]);
