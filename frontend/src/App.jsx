@@ -22,14 +22,22 @@ const App = () => {
     });
   };
 
-  const openModal = (photo) => {
-    setSelectedPhoto(photo);
+  // Function to open the modal with a selected photo
+  const openModal = (photoData) => {
+    setSelectedPhoto(photoData);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedPhoto(null);
+  };
+
+    // Function to get similar photos on the modal
+  const getSimilarPhotos = (photoData) => {
+    // in the future implement the logic to find similar photos
+    return photos.filter((photo) => 
+      photo.location.city === photoData.location.city && photo.id !== photoData.id);
   };
 
   return (
@@ -43,7 +51,8 @@ const App = () => {
       />
       {isModalOpen && selectedPhoto && (
         <PhotoDetailsModal
-          photo={selectedPhoto}
+          photoData={selectedPhoto}
+          getSimilarPhotos={getSimilarPhotos(selectedPhoto)}
           closeModal={closeModal}
         />
       )}
