@@ -1,9 +1,19 @@
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from '../components/PhotoList';
+import FavBadge from '../components/FavBadge';
+import PhotoFavButton from '../components/PhotoFavButton';
 
-const PhotoDetailsModal = ({photoData, similarPhotos, closeModal}) => {
-  const {user: { username, profile }, urls: { full: imageSource }, location } = photoData
+const PhotoDetailsModal = ({photoData, similarPhotos, closeModal,likedPhotos,toggleFavorite}) => {
+  const {id, user: { username, profile }, urls: { full: imageSource }, location } = photoData
+
+  // Check if current photo is liked
+  const isLiked = likedPhotos.includes(id);
+
+  // Handle the heart icon click to toggle the like
+  const handleLikeClick = () => {
+    toggleFavorite(id);
+  }
 
   return (
     <div className="photo-details-modal">
@@ -11,10 +21,26 @@ const PhotoDetailsModal = ({photoData, similarPhotos, closeModal}) => {
         className="photo-details-modal__close-button" 
         onClick={closeModal}
       >
-        <img src={closeSymbol} alt="close symbol" />
+        <img src={closeSymbol} alt="close symbol" className="photo-details-modal__close-icon" />
       </button>
 
+      {/* Display the selected photo in larger size */}
       <div className="photo-details-modal__top-bar">
+        <div className="photo-details-modal__image-container">
+          <img 
+            src={imageSource} 
+            alt={`Photo by ${username}`} 
+            className="photo-details-modal__image"
+          />
+        <PhotoFavButton
+          isLiked={isLiked}
+          handleClick={handleLikeClick}
+        />
+        </div>
+      </div>
+
+      {/* Photographer's profile and details below the image */}
+      <div className="photo-details-modal__photographer-section">
         <div className="photo-details-modal__photographer-details">
           <img 
             src={profile} 
@@ -28,22 +54,13 @@ const PhotoDetailsModal = ({photoData, similarPhotos, closeModal}) => {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Display the selected photo in larger size */}
-      <div className="photo-details-modal__images">
-        <img 
-          src={imageSource} 
-          alt={`Photo by ${username}`} 
-          className="photo-details-modal__image"
-        />
+        {/* Similar Photos Heading */}
+        <h3 className="photo-details-modal__header-similar-photos">Similar Photos</h3>
       </div>
 
       {/* Section for similar photos */}
-      <div className="photo-details-modal__similar-photos">
-        <h4 className="photo-details-modal__header">Similar Photos</h4>
-        
-        {/* Render the PhotoList component to show similar photos */}
+      <div className="photo-details-modal__images">
         <PhotoList 
           photos={similarPhotos} 
           likedPhotos={[]} // Passing empty array for likedPhotos; could be extended later
