@@ -9,7 +9,8 @@ export const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
+  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS'
 };
 
 
@@ -46,6 +47,14 @@ function reducer(state, action) {
         ...state,
         isModalOpen: true
       };
+
+    case ACTIONS.CLOSE_PHOTO_DETAILS:
+      return {
+        ...state,
+        isModalOpen: false,
+        selectedPhoto: null
+      }
+
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
   }
@@ -81,7 +90,7 @@ const useApplicationData = () => {
 
   // Dispatch Action: Close photo details modal
   const onClosePhotoDetailsModal = () => {
-    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
+    dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
   };
 
   return {
