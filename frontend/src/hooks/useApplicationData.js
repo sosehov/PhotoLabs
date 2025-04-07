@@ -36,7 +36,7 @@ const useApplicationData = () => {
   const onClosePhotoDetailsModal = () => {
     setState((prevState)=> ({
       ...prevState,
-      IsModalOpen: false,
+      isModalOpen: false,
       selectedPhoto: null,
     }));
   };
