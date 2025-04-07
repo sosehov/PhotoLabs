@@ -10,7 +10,6 @@ const App = () => {
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
     getSimilarPhotos,
-    //onLoadTopic,
   } = useApplicationData();
 
   return (
@@ -21,7 +20,6 @@ const App = () => {
         likedPhotos={likedPhotos}
         toggleFavorite={updateToFavPhotoIds}
         openModal={onPhotoSelect}
-        similarPhotos={getSimilarPhotos}
       />
       {isModalOpen && selectedPhoto && (
         <PhotoDetailsModal

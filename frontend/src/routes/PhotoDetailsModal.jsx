@@ -1,7 +1,6 @@
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from '../components/PhotoList';
-import FavBadge from '../components/FavBadge';
 import PhotoFavButton from '../components/PhotoFavButton';
 
 const PhotoDetailsModal = ({photoData, similarPhotos, closeModal,likedPhotos,toggleFavorite}) => {
