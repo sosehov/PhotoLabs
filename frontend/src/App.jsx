@@ -54,6 +54,8 @@ const App = () => {
           photoData={selectedPhoto}
           similarPhotos={getSimilarPhotos(selectedPhoto)}
           closeModal={closeModal}
+          likedPhotos={likedPhotos}
+          toggleFavorite={toggleFavorite}
         />
       )}
     </div>
