@@ -52,7 +52,7 @@ const App = () => {
       {isModalOpen && selectedPhoto && (
         <PhotoDetailsModal
           photoData={selectedPhoto}
-          getSimilarPhotos={getSimilarPhotos(selectedPhoto)}
+          similarPhotos={getSimilarPhotos(selectedPhoto)}
           closeModal={closeModal}
         />
       )}
