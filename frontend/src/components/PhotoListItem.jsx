@@ -7,7 +7,8 @@ const PhotoListItem = ({ photoData, likedPhotos, toggleFavorite, openModal }) =>
   // Checik if the current photo is liked
   const isLiked = likedPhotos.includes(id);
 
-  const handleClick = () => {
+  const handleLikeClick = (e) => {
+    e.stopPropagation(); // Prevent modal from opening when clicking the heart
     toggleFavorite(id);
   };
 
@@ -17,12 +18,16 @@ const PhotoListItem = ({ photoData, likedPhotos, toggleFavorite, openModal }) =>
 
   return (
     <div className="photo-list__item" onClick={handleOpenModal}>
-      <img src={imageSource} className="photo-list__image" />
+      <img src={imageSource} className="photo-list__image" alt={`Photo by ${username}`}/>
       <div className="photo-list__user-details">
-        <img src={profile} alt={`Profile of ${username}`} className="photo-list__user-profile" />
+        <img 
+          src={profile}
+          alt={`Profile of ${username}`}
+          className="photo-list__user-profile" 
+        />
         <PhotoFavButton 
           isLiked={isLiked} 
-          handleClick={handleClick} 
+          handleClick={handleLikeClick} 
         />
         <div className="photo-list__user-info">
           <h3>{username}</h3>
