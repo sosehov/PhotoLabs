@@ -1,6 +1,6 @@
-import { useEffect, useReducer } from 'react';
-import topics from './mocks/topics';
-import photos from './mocks/photos';
+import { useReducer } from 'react';
+import topics from '../mocks/topics';
+import photos from '../mocks/photos';
 
 
 export const ACTIONS = {
@@ -72,6 +72,19 @@ const useApplicationData = () => {
     topics: []
   });
 
+  // Function to get similar photos based on the selected photo's location (city and country)
+  const getSimilarPhotos = (selectedPhoto) => {
+    if (!selectedPhoto) return [];
+    
+    // Get the location of the selected photo
+    const { city, country } = selectedPhoto.location;
+
+    // Filter photos based on the city and country of the selected photo
+    return state.photos.filter((photo) => 
+      photo.location.city === city && photo.location.country === country
+    );
+  };
+
   // Dispatch Action: Select a photo
   const onPhotoSelect = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
@@ -93,11 +106,19 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
   };
 
+  /* // Dispatch Action: load topics
+  const onLoadTopic = (topicId) => {
+    const selectedTopic = state.topics.find(topic => topic.id === topicId);
+    return selectedTopic;
+  }; */
+
   return {
     state,
+    getSimilarPhotos,
     updateToFavPhotoIds,
     onPhotoSelect,
-    onClosePhotoDetailsModal
+    onClosePhotoDetailsModal,
+    //onLoadTopic,
   };
 };
 

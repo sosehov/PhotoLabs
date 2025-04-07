@@ -1,8 +1,7 @@
-import React , { useEffect, useState } from 'react';
 import HomeRoute from './routes/HomeRoute';
 import './App.scss';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
-import useApplicationData, { ACTIONS } from './hooks/useApplicationData';
+import useApplicationData from './hooks/useApplicationData';
 
 const App = () => {
   const {
@@ -10,6 +9,8 @@ const App = () => {
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
+    getSimilarPhotos,
+    //onLoadTopic,
   } = useApplicationData();
 
   return (
@@ -20,6 +21,7 @@ const App = () => {
         likedPhotos={likedPhotos}
         toggleFavorite={updateToFavPhotoIds}
         openModal={onPhotoSelect}
+        similarPhotos={getSimilarPhotos}
       />
       {isModalOpen && selectedPhoto && (
         <PhotoDetailsModal
