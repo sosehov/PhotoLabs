@@ -1,56 +1,50 @@
+import { useState, useEffect } from 'react';
+import topics from './mocks/topics';
+import photos from './mocks/photos';
+
 const useApplicationData = () => {
 
-  const [state, setState] = useState();
+  // Initial state
+  const [state, setState] = useState({
+    likedPhotos: [],
+    selectedPhoto: null,
+    isModalOpen: false,
+    photos: [],
+    topics: []
+  });
 
+  // Action: Select a photo
+  const onPhotoSelect = (photo) => {
+    setState(prevState => ({
+      ...prevState,
+      selectedPhoto: photo,
+      isModalOpen: true,
+    }));
+  }
+
+  // Action: Toggle photo favorite status
   const updateToFavPhotoIds = (photoId) => {
-    setState((prevLikedPhotos) => {
-      if (prevLikedPhotos.includes(photoId)) {
-        // Remove from liked photos if it's already in the list
-        return prevLikedPhotos.filter((id) => id !== photoId);
-      } else {
-        // Add to liked photos if it's not in the list
-        return [...prevLikedPhotos, photoId];
-      }
-    });
-  };
+    setState((prevState) => {
+      const likedPhotos = prevState.likedPhotos.includes(photoId)
+      ? prevState.likedPhotos.filter(id => id !== photoId)  // Remove if already liked
+      : [...prevState.likedPhotos, photoId];  // Add to liked photos
+    return { ...prevState, likedPhotos };
+  });
+};
 
-  const onPhotoSelect = (photoData) => {
-    setState = (() => {
-      setSelectedPhoto(photoData);
-      setIsModalOpen(true);
-    });
-  };
-
-  const toggleFavorite = (photoId) => {
-    setLikedPhotos((prevLikedPhotos) => {
-      if (prevLikedPhotos.includes(photoId)) {
-        // Remove from liked photos if it's already in the list
-        return prevLikedPhotos.filter((id) => id !== photoId);
-      } else {
-        // Add to liked photos if it's not in the list
-        return [...prevLikedPhotos, photoId];
-      }
-    });
-  };
-
+  // Action: Close photo details modal
   const onClosePhotoDetailsModal = () => {
-    setState(()=> {
-      setIsModalOpen(false);
-      setSelectedPhoto(null);
-    });
-  };
-
-  const onloadTopic = (photoData) => {
-    setState((photoData)=> {
-      return photos.filter((photo) => 
-        photo.location.city === photoData.location.city && photo.id !== photoData.id);
-    });
+    setState((prevState)=> ({
+      ...prevState,
+      IsModalOpen: false,
+      selectedPhoto: null,
+    }));
   };
 
   return {
     state,
     updateToFavPhotoIds,
-    setPhotoSelected,
+    onPhotoSelect,
     onClosePhotoDetailsModal
   };
 };
