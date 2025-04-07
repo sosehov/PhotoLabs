@@ -2,7 +2,7 @@ import React , { useEffect, useState } from 'react';
 import HomeRoute from './routes/HomeRoute';
 import './App.scss';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
-import './hooks/useApplicationData';
+import useApplicationData, { ACTIONS } from './hooks/useApplicationData';
 
 const App = () => {
   const {

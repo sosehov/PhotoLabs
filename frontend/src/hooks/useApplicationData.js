@@ -1,11 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
 import topics from './mocks/topics';
 import photos from './mocks/photos';
 
+
+export const ACTIONS = {
+  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
+  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  SELECT_PHOTO: 'SELECT_PHOTO',
+  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+};
+
+
+// Reducer function
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.FAV_PHOTO_ADDED:
+      return {
+        ...state,
+        likedPhotos: [...state.likedPhotos, action.photoId]
+      };
+    case ACTIONS.FAV_PHOTO_REMOVED:
+      return {
+        ...state,
+        likedPhotos: state.likedPhotos.filter(id => id !== action.photoId)
+      };
+    case ACTIONS.SET_PHOTO_DATA:
+      return {
+        ...state,
+        photos: action.photos
+      };
+    case ACTIONS.SET_TOPIC_DATA:
+      return {
+        ...state,
+        topics: action.topics
+      };
+    case ACTIONS.SELECT_PHOTO:
+      return {
+        ...state,
+        selectedPhoto: action.photo
+      };
+    case ACTIONS.DISPLAY_PHOTO_DETAILS:
+      return {
+        ...state,
+        isModalOpen: true
+      };
+    default:
+      throw new Error(`Unsupported action type: ${action.type}`);
+  }
+};
+
+// Define the custom hook
 const useApplicationData = () => {
 
-  // Initial state
-  const [state, setState] = useState({
+  // Initial state - Use the useReducer hook
+  const [state, dispatch] = useReducer(reducer, {
     likedPhotos: [],
     selectedPhoto: null,
     isModalOpen: false,
@@ -13,32 +63,25 @@ const useApplicationData = () => {
     topics: []
   });
 
-  // Action: Select a photo
+  // Dispatch Action: Select a photo
   const onPhotoSelect = (photo) => {
-    setState(prevState => ({
-      ...prevState,
-      selectedPhoto: photo,
-      isModalOpen: true,
-    }));
-  }
+    dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
+    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
+  };
 
-  // Action: Toggle photo favorite status
+  // Dispatch Action: Toggle photo favorite status
   const updateToFavPhotoIds = (photoId) => {
-    setState((prevState) => {
-      const likedPhotos = prevState.likedPhotos.includes(photoId)
-      ? prevState.likedPhotos.filter(id => id !== photoId)  // Remove if already liked
-      : [...prevState.likedPhotos, photoId];  // Add to liked photos
-    return { ...prevState, likedPhotos };
-  });
-};
+    // Check if the photo is already liked, if yes, remove it, else add it
+    if (state.likedPhotos.includes(photoId)) {
+      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, photoId });
+    } else {
+      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, photoId });
+    }
+  };
 
-  // Action: Close photo details modal
+  // Dispatch Action: Close photo details modal
   const onClosePhotoDetailsModal = () => {
-    setState((prevState)=> ({
-      ...prevState,
-      isModalOpen: false,
-      selectedPhoto: null,
-    }));
+    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
   };
 
   return {
@@ -48,3 +91,5 @@ const useApplicationData = () => {
     onClosePhotoDetailsModal
   };
 };
+
+export default useApplicationData;
