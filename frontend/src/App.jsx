@@ -1,17 +1,14 @@
 import React , { useEffect, useState } from 'react';
 import HomeRoute from './routes/HomeRoute';
-import topics from './mocks/topics';
-import photos from './mocks/photos';
 import './App.scss';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import './hooks/useApplicationData';
 
 const App = () => {
   const {
-    state,
+    state: { photos, topics, likedPhotos, selectedPhoto, isModalOpen },
     onPhotoSelect,
     updateToFavPhotoIds,
-    onLoadTopic,
     onClosePhotoDetailsModal,
   } = useApplicationData();
 
@@ -21,16 +18,16 @@ const App = () => {
         photos={photos}
         topics={topics}
         likedPhotos={likedPhotos}
-        toggleFavorite={toggleFavorite}
-        openModal={openModal}
+        toggleFavorite={updateToFavPhotoIds}
+        openModal={onPhotoSelect}
       />
       {isModalOpen && selectedPhoto && (
         <PhotoDetailsModal
           photoData={selectedPhoto}
           similarPhotos={getSimilarPhotos(selectedPhoto)}
-          closeModal={closeModal}
+          closeModal={onClosePhotoDetailsModal}
           likedPhotos={likedPhotos}
-          toggleFavorite={toggleFavorite}
+          toggleFavorite={updateToFavPhotoIds}
         />
       )}
     </div>
