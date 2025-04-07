@@ -63,8 +63,8 @@ const PhotoDetailsModal = ({photoData, similarPhotos, closeModal,likedPhotos,tog
       <div className="photo-details-modal__images">
         <PhotoList 
           photos={similarPhotos} 
-          likedPhotos={[]} // Passing empty array for likedPhotos; could be extended later
-          toggleFavorite={() => {}} // Placeholder, modify to handle favorite toggling if needed
+          likedPhotos={likedPhotos}
+          toggleFavorite={toggleFavorite}
         />
       </div>
     </div>
