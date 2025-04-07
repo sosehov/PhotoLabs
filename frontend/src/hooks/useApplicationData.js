@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import topics from '../mocks/topics';
 import photos from '../mocks/photos';
 
@@ -30,12 +30,12 @@ function reducer(state, action) {
     case ACTIONS.SET_PHOTO_DATA:
       return {
         ...state,
-        photos: action.photos
+        photos: action.photos // Populate photos with actual data
       };
     case ACTIONS.SET_TOPIC_DATA:
       return {
         ...state,
-        topics: action.topics
+        topics: action.topics // Populate topics with actual data
       };
     case ACTIONS.SELECT_PHOTO:
       return {
@@ -72,17 +72,17 @@ const useApplicationData = () => {
     topics: []
   });
 
-  // Function to get similar photos based on the selected photo's location (city and country)
+  // Dispatch actions to set the initial data
+  useEffect(() => {
+    dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos });  // Populate photos from mocks
+    dispatch({ type: ACTIONS.SET_TOPIC_DATA, topics });  // Populate topics from mocks
+  }, []);
+
+  // Function to get similar photos
   const getSimilarPhotos = (selectedPhoto) => {
     if (!selectedPhoto) return [];
-    
-    // Get the location of the selected photo
-    const { city, country } = selectedPhoto.location;
-
-    // Filter photos based on the city and country of the selected photo
-    return state.photos.filter((photo) => 
-      photo.location.city === city && photo.location.country === country
-    );
+    // Extract similar photos from the selected photo object
+    return Object.values(selectedPhoto.similar_photos) || [];
   };
 
   // Dispatch Action: Select a photo
@@ -106,19 +106,12 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
   };
 
-  /* // Dispatch Action: load topics
-  const onLoadTopic = (topicId) => {
-    const selectedTopic = state.topics.find(topic => topic.id === topicId);
-    return selectedTopic;
-  }; */
-
   return {
     state,
     getSimilarPhotos,
     updateToFavPhotoIds,
     onPhotoSelect,
     onClosePhotoDetailsModal,
-    //onLoadTopic,
   };
 };
 
