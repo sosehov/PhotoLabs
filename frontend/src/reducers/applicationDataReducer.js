@@ -52,4 +52,4 @@ export function reducer(state, action) {
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
   }
-};
+}
