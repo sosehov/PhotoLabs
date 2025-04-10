@@ -70,14 +70,14 @@ const useApplicationData = () => {
 
   // Fetch the photo data and store it in state
   useEffect(() => {
-    fetch(`http://localhost:8001/api/photos`)
-    .then( res => res.json() )
-    .then( data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos: data }));
+    fetch(`/api/photos`)
+    .then(res => res.json())
+    .then(data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos: data}));
   },[]);
 
   //fetch the topics data and store it in state
   useEffect(() => {
-    fetch(`http://localhost:8001/api/topics`)
+    fetch(`/api/topics`)
       .then( res => res.json() )
       .then( data => dispatch({ type: ACTIONS.SET_TOPIC_DATA, topics: data}));
   },[]);
