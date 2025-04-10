@@ -68,18 +68,19 @@ const useApplicationData = () => {
     topics: []
   });
 
-  // Fetch the photo data and store it in state
+  // Fetch the photo data and topics data store them in state
   useEffect(() => {
-    fetch(`/api/photos`)
-    .then(res => res.json())
-    .then(data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos: data}));
-  },[]);
-
-  //fetch the topics data and store it in state
-  useEffect(() => {
-    fetch(`/api/topics`)
-      .then( res => res.json() )
-      .then( data => dispatch({ type: ACTIONS.SET_TOPIC_DATA, topics: data}));
+    Promise.all([
+      fetch(`/api/photos`).then(res => res.json()),
+      fetch(`/api/topics`).then( res => res.json()) 
+    ])
+      .then(([photosData, topicsData]) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos: photosData });
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, topics: topicsData});
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   },[]);
 
   // Function to get similar photos
