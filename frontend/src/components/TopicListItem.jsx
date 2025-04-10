@@ -1,7 +1,7 @@
 import "../styles/TopicListItem.scss";
 
-const TopicListItem = ({topicData}) => {
-  const {title} = topicData;
+const TopicListItem = ({topicData, onClick}) => {
+  const {title, id} = topicData;
 
   const handleClick = () => {
     onClick(id);
