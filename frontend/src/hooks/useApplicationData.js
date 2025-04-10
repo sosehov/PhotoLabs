@@ -1,7 +1,4 @@
 import { useEffect, useReducer } from 'react';
-import topics from '../mocks/topics';
-import photos from '../mocks/photos';
-
 
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -12,7 +9,6 @@ export const ACTIONS = {
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
   CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS'
 };
-
 
 // Reducer function
 function reducer(state, action) {
@@ -72,11 +68,19 @@ const useApplicationData = () => {
     topics: []
   });
 
-  // Dispatch actions to set the initial data
+  // Fetch the photo data and store it in state
   useEffect(() => {
-    dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos });  // Populate photos from mocks
-    dispatch({ type: ACTIONS.SET_TOPIC_DATA, topics });  // Populate topics from mocks
-  }, []);
+    fetch(`http://localhost:8001/api/photos`)
+    .then( res => res.json() )
+    .then( data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos: data }));
+  },[]);
+
+  //fetch the topics data and store it in state
+  useEffect(() => {
+    fetch(`http://localhost:8001/api/topics`)
+      .then( res => res.json() )
+      .then( data => dispatch({ type: ACTIONS.SET_TOPIC_DATA, topics: data}));
+  },[]);
 
   // Function to get similar photos
   const getSimilarPhotos = (selectedPhoto) => {
