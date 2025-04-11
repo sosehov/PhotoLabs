@@ -31,9 +31,9 @@ const useApplicationData = () => {
 
   const fetchPhotosByTopic = (topicId) => {
     fetch((`${API_ENDPOINTS.TOPICS}/${topicId}/photos`))
-    .then(res => res.json())
-    .then(data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos: data }))
-    .catch(err => console.error("Error fetching topic photos:", err));
+      .then(res => res.json())
+      .then(data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos: data }))
+      .catch(err => console.error("Error fetching topic photos:", err));
   };
 
   const getSimilarPhotos = (selectedPhoto) => {
