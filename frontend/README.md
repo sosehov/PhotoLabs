@@ -14,8 +14,6 @@ Start the server with
 npm run dev
 ```
 
-You can visit the running application at [http://localhost:3000](http://localhost:3000)
-
 ## Run The Linter
 
 You can run eslint with the following command:
