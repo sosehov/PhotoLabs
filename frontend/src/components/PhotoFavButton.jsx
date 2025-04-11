@@ -1,4 +1,5 @@
 import '../styles/PhotoFavButton.scss';
+import FavBadge from './FavBadge';
 import FavIcon from './FavIcon';
 
 const PhotoFavButton = (props) => {
