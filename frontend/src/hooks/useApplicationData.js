@@ -11,7 +11,8 @@ const useApplicationData = () => {
     selectedPhoto: null,
     isModalOpen: false,
     photos: [],
-    topics: []
+    topics: [],
+    likedPhotosModalOpen: false
   });
 
   // Fetch the photo data and topics data and store them in state
@@ -63,6 +64,10 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
   };
 
+  const toggleLikedPhotosModal = () => {
+    dispatch({ type: ACTIONS.TOGGLE_LIKED_MODAL });
+  };  
+
   return {
     state,
     getSimilarPhotos,
@@ -70,6 +75,7 @@ const useApplicationData = () => {
     onPhotoSelect,
     onClosePhotoDetailsModal,
     fetchPhotosByTopic,
+    toggleLikedPhotosModal,
   };
 };
 

@@ -3,7 +3,7 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from '../components/PhotoList';
 import PhotoFavButton from '../components/PhotoFavButton';
 
-const PhotoDetailsModal = ({photoData, similarPhotos, closeModal,likedPhotos,toggleFavorite}) => {
+const PhotoDetailsModal = ({photoData, similarPhotos, closeModal,likedPhotos,toggleFavorite, openModal}) => {
   const {id, user: { username, profile }, urls: { full: imageSource }, location } = photoData
 
   // Check if current photo is liked
@@ -59,6 +59,7 @@ const PhotoDetailsModal = ({photoData, similarPhotos, closeModal,likedPhotos,tog
           photos={similarPhotos} 
           likedPhotos={likedPhotos}
           toggleFavorite={toggleFavorite}
+          openModal={openModal}
         />
       </div>
     </div>
