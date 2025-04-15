@@ -5,7 +5,8 @@ export const ACTIONS = {
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS'
+  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS',
+  TOGGLE_LIKED_MODAL: 'TOGGLE_LIKED_MODAL'
 };
 
 // Reducer function
@@ -48,6 +49,12 @@ export function reducer(state, action) {
         isModalOpen: false,
         selectedPhoto: null
       }
+
+    case ACTIONS.TOGGLE_LIKED_MODAL:
+      return {
+        ...state,
+        likedPhotosModalOpen: !state.likedPhotosModalOpen
+      };      
 
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
